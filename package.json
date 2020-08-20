@@ -1,0 +1,89 @@
+{
+  "name": "vue-cli-ssr-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:ssr": "node server.js",
+    "dev:csr": "cross-env RENDER_MODE=csr vue-cli-service serve",
+    "build:ssr": "npm run build:client && npm run build:server",
+    "build:csr": "vue-cli-service build",
+    "start:ssr": "cross-env NODE_ENV=production node server.js",
+    "lint": "vue-cli-service lint",
+    "build:client": "cross-env NODE_ENV=production webpack --config config/webpack.client.config.js --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.config.js --progress --hide-modules"
+  },
+  "dependencies": {
+    "@midwayjs/faas": "^1.2.1",
+    "@midwayjs/faas-middleware-static-file": "^1.0.0",
+    "axios": "^0.19.2",
+    "compression": "^1.7.4",
+    "core-js": "^3.6.5",
+    "es6-promise": "^4.2.8",
+    "lru-cache": "^4.1.3",
+    "route-cache": "^0.4.5",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vue-server-renderer": "^2.6.11",
+    "vuex": "^3.4.0",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "devDependencies": {
+    "@midwayjs/serverless-invoke": "^1.2.3",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-vue": "^6.2.2",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "sw-precache-webpack-plugin": "^1.0.0",
+    "typescript": "^3.9.7",
+    "vue-cli-plugin-faas": "^1.0.0",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-cli": "^3.3.12",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended",
+      "@vue/prettier"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  },
+  "midway-integration": {
+    "tsCodeRoot": "src/apis",
+    "lifecycle": {
+      "before:package:cleanup": "npm run ssr:build"
+    }
+  }
+}

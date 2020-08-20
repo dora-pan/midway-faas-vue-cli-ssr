@@ -1,0 +1,15 @@
+{
+    "list": [{
+            "name": "[Mock] @midwayjs/faas-cli",
+            "info": "FaaS 本地研发工具包"
+        },
+        {
+            "name": "[Mock] @midwayjs/faas",
+            "info": "函数IoC框架"
+        },
+        {
+            "name": "[Mock] @midwayjs/runtime-engine",
+            "info": "函数运行时引擎"
+        }
+    ]
+}
